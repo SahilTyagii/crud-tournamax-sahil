@@ -1,19 +1,19 @@
 import dbConnect from "@/db/dbConnect";
 import TopicModel from "@/models/model";
-import { Topic } from "@/models/model";
-import mongoose from "mongoose";
+import { NextResponse } from 'next/server';
 
 export const GET = async () => {
     await dbConnect()
     try {
-        const topics: Topic[] = await TopicModel.find()
-        return Response.json({
+        const topics = await TopicModel.find().lean()
+        console.log(topics)
+        return NextResponse.json({
             success: true,
             data: topics
         },
         {status: 200})
-    } catch (error: any) {
-        return Response.json({
+    } catch (error) {
+        return NextResponse.json({
             success: false,
             message: "Internal server error"
         },

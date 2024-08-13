@@ -9,7 +9,7 @@ export interface Topic extends Document {
 const TopicSchema: Schema<Topic> = new Schema({
     Title: { type: String, required: true },
     Description: { type: String, required: true },
-    createdAt: { type: Date, required: true, default: Date.now()}
+    createdAt: { type: Date, required: true, default: Date.now}
 });
 
 const TopicModel = (mongoose.models.Topic as mongoose.Model<Topic>) || mongoose.model<Topic>("Topic", TopicSchema);

@@ -4,8 +4,12 @@ import { Topic } from "@/models/model";
 
 export const POST = async (request: Request) => {
     await dbConnect()
-    const { Title, Description }: Topic = await request.json()
-    const newTopic: Topic = new TopicModel({
+    interface TopicRequestBody {
+        Title: string;
+        Description: string;
+    }
+    const { Title, Description }: TopicRequestBody = await request.json();
+    const newTopic = new TopicModel({
         Title,
         Description,
         createdAt: new Date()
