@@ -10,8 +10,12 @@ export const GET = async () => {
         return NextResponse.json({
             success: true,
             data: topics
-        },
-        {status: 200})
+        }, {
+            headers: {
+                'Cache-Control': 'no-store, max-age=0',
+            },
+            status: 200
+        })
     } catch (error) {
         return NextResponse.json({
             success: false,
