@@ -64,7 +64,7 @@ const EditTopic: React.FC<EditTopicProps> = ({ params }) => {
       <div className="lg:w-1/2 md:w-3/4 w-full">
         <Header />
         <div className='flex justify-center'>
-            <form className='flex flex-col w-8/12 p-8 shadow-md rounded-lg text-gray-800' onSubmit={handleSubmit}>
+            <form className='flex flex-col md:w-8/12 w-full p-8 shadow-md rounded-lg text-gray-800' onSubmit={handleSubmit}>
                 <input type="text" name='Title' id='title' placeholder='Topic Title' className='py-2 px-4 border border-[#CBD5E1] my-2 rounded-md focus:outline-green-500' value={topic.Title} onChange={handleChange}/>
                 <textarea name="Description" id="description" placeholder='Topic Description' className='py-2 px-4 border border-[#CBD5E1] my-2 rounded-md focus:outline-green-500' value={topic.Description} onChange={handleChange}/>
                 <button type='submit' className='py-3 my-4 px-6 bg-green-600 hover:bg-green-700 font-semibold text-white rounded-md'>
