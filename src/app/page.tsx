@@ -3,6 +3,7 @@ import TopicCard from "@/components/TopicCard";
 import React, { useState } from "react";
 import axios from "axios";
 import Header from "@/components/Header";
+import { Oval } from "react-loader-spinner";
 
 export default function Home() {
   interface Topic {
@@ -18,9 +19,13 @@ export default function Home() {
   React.useEffect(() => {
     const fetchTopics = async () => {
       try {
-        const response = await axios.get("/api/get-topics");
+        const response = await axios.get("/api/get-topics", {
+          headers: {
+            'Cache-Control': 'no-cache'
+          }
+        });
         setTopics(response.data.data);
-        console.log(response.data); // Log response data to confirm it's correct
+        console.log(response.data);
       } catch (error) {
         console.error(error);
       } finally {
@@ -39,7 +44,7 @@ export default function Home() {
       <div className="lg:w-1/2 md:w-3/4 w-full">
         <Header />
         {
-          topics.length > 0 ? null : <h1 className="text-2xl text-center text-gray-400">No topics found</h1>
+          loading ? <div className="h-screen w-screen fixed top-0 left-0 items-center justify-center flex"><Oval height={80} width={80} color="#bbb" secondaryColor="#ddd" /></div> : (topics.length > 0 ? null : <h1 className="text-2xl text-center text-gray-400">No topics found</h1>)
         }
         {
           Array.isArray(topics) && topics.map((topic) => (
