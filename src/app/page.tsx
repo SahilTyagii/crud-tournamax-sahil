@@ -30,14 +30,21 @@ export default function Home() {
     fetchTopics();
   }, []);
 
+  const handleDelete = (_id: string) => {
+    setTopics((prevTopics) => prevTopics.filter(topic => topic._id !== _id));
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between px-2 py-4 bg-white">
       <div className="lg:w-1/2 md:w-3/4 w-full">
         <Header />
         {
+          topics.length > 0 ? null : <h1 className="text-2xl text-center text-gray-400">No topics found</h1>
+        }
+        {
           Array.isArray(topics) && topics.map((topic) => (
             <div key={topic._id}>
-              <TopicCard title={topic.Title} description={topic.Description}/>
+              <TopicCard _id={topic._id} title={topic.Title} description={topic.Description} onDelete={handleDelete}/>
             </div>
           ))
         }

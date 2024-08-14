@@ -1,12 +1,11 @@
 import dbConnect from "@/db/dbConnect";
 import TopicModel from "@/models/model";
-import { Topic } from "@/models/model";
 
 export const PUT = async (request: Request) => {
     await dbConnect()
-    const { id, Title, Description }: Topic = await request.json()
+    const { _id, Title, Description } = await request.json()
     try {
-        await TopicModel.findByIdAndUpdate(id, {Title, Description})
+        await TopicModel.findByIdAndUpdate(_id, {Title, Description})
         return Response.json({
             success: true,
             message: "Topic updated successfully"

@@ -2,15 +2,18 @@
 import Header from '@/components/Header'
 import React, { useState } from 'react'
 import axios from 'axios'
+import { Oval } from 'react-loader-spinner'
 
 const AddTopicPage: React.FC = () => {
     const [topic, setTopic] = useState({
         title: '',
         description: ''
     })
+    const [loading, setLoading] = useState<boolean>(false)
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+        setLoading(true)
         try {
             const response = await axios.post('/api/add-topic', {
                 Title: topic.title,
@@ -20,6 +23,8 @@ const AddTopicPage: React.FC = () => {
             window.location.href = '/'
         } catch (error) {
             console.error(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -33,7 +38,9 @@ const AddTopicPage: React.FC = () => {
             <input type="text" name="description" id="description" placeholder='Topic Description' value={topic.description} onChange={(e) => setTopic((prev) => ({...prev, description: e.target.value}))} className='py-2 px-4 border border-slate-500'/>
             <div>
                 <button type='submit' className='py-3 px-6 bg-green-500 hover:bg-green-600 font-semibold text-white'>
-                    Add Topic
+                    {
+                        loading ? <Oval height='30' width='30' color='#fff' /> : 'Add Topic'
+                    }
                 </button>
             </div>
         </form>
